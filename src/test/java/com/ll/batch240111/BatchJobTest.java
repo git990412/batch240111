@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.JobRepositoryTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
@@ -26,6 +27,12 @@ public class BatchJobTest {
     @Test
     public void test(){
         JobExecution jobExecution = jobLauncherTestUtils.launchStep("outHelloWorld");
+        Assert.hasText("COMPLETED", jobExecution.getExitStatus().getExitCode());
+    }
+
+    @Test
+    public void test2() throws Exception {
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob(new JobParameters());
         Assert.hasText("COMPLETED", jobExecution.getExitStatus().getExitCode());
     }
 }
